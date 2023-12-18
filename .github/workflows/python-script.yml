@@ -1,0 +1,32 @@
+name: Run Python Script
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9' # 例: Python 3.9 を使用
+
+    - name: Install Chrome
+      run: |
+        sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo apt update
+        sudo apt-get install google-chrome-stable
+        
+    - name: Install Package
+      run: |
+        pip install chromedriver-binary==94.*
+        pip install selenium
+
+    - name: Run script
+      run: python returncode.py

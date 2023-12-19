@@ -19,9 +19,9 @@ driver = webdriver.Chrome(options=chrome_options)
 driver.get('https://altema.jp/dotyusya/hultuki')
 
 element_to_click = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.ID, 'dummy'))
+    EC.element_to_be_clickable((By.NAME, 'dummy'))
 )
-element_to_click.click()
+driver.execute_script("arguments[0].click();", element_to_click)
 
 # テキストフィールドに入力
 input_field = WebDriverWait(driver, 10).until(
